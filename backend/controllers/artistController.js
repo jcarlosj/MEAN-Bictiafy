@@ -1,6 +1,6 @@
 /** Artist Controllers */
 const artistController = {},
-      Artist = require( '../models/Usuario' );       // Importa el Modelo de datos;
+      Artist = require( '../models/Artista' );       // Importa el Modelo de datos;
 
 // Métodos del Controlador Artists
 artistController .getArtists = async ( request, response ) => { 
