@@ -4,7 +4,7 @@ const albumController = {},
       Album = require( '../models/Album' );          // Importa el Modelo de datos;
 
 // Métodos del Controlador Albums
-albumController .getAlbums = async ( request, response ) => { 
+albumController .getAlbumsAndArtists = async ( request, response ) => { 
     
     const albums = await Album .find() .populate( 'artista' );   
     response .json( albums ); 
@@ -52,45 +52,62 @@ albumController .createAlbumAndArtist = async ( request, response ) => {
     response .json({ message: 'Artist & Album Saved' });
 }
 
-albumController .getAlbum = async ( request, response ) => {
+albumController .getAlbumAndArtist = async ( request, response ) => {
     console .log( request .params .id );     // Recibe el parámetro ID de la URL
 
     const album = await Album .findById( request .params .id ) .populate( 'artista' );
     console .log( album );
     response .json( album );
 }
-/** TO DO:
- *  1. Realizar implementación de actualización anidada de colecciones
- */
-albumController .updateAlbum = async ( request, response ) => {
+
+albumController .updateAlbumAndArtist = async ( request, response ) => {
     console .log( request .params .id );     // Recibe el parámetro ID de la URL
     
     const { 
-        titulo,
-        descripcion,
-        anio,
-        imagen,
-        artista 
-    } = request .body,
+            titulo,
+            descripcion,
+            anio,
+            imagen,
+            artista
+        } = request .body,
 
-    album = await Album .findByIdAndUpdate( request .params .id, {
-        titulo,
-        descripcion,
-        anio,
-        imagen,
-        artista 
-    });
-    console .log( album );
+        album = await Album .findByIdAndUpdate( request .params .id, {
+            titulo,
+            descripcion,
+            anio,
+            imagen
+        }),
+        artist = await Artist .findByIdAndUpdate( album .artista, {
+            nombre: artista .nombre,
+            descripcion: artista .descripcion, 
+            imagen: artista .imagen
+        });
+
+    console .group( 'Encuentra' );      
+    console .info( 'Album', album );
+    console .info( 'Artista', artist );
+    console .groupEnd();
+
+    console .group( 'Actualiza a' );
+    console .log( 'Album & Artista', album );
+    console .groupEnd();
+
     response .json({ message: 'Album Updated' });
 }
 
-albumController .deleteAlbum = async ( request, response ) => {
+albumController .deleteAlbumAndArtist = async ( request, response ) => {
 
     console .log( request .params .id );     // Recibe el parámetro ID de la URL
 
-    const album = await Album .findByIdAndDelete( request .params .id );
-    console .log( album );
-    response .json({ message: 'Album Deleted' });
+    const album = await Album .findByIdAndDelete( request .params .id ),
+          artist = await Artist .findByIdAndDelete( album .artista );
+
+    console .group( 'Encuentra y Elimina' );      
+    console .info( 'Album', album );
+    console .info( 'Artista', artist );
+    console .groupEnd();      
+
+    response .json({ message: 'Album & Artist Deleted' });
 }
 
 module .exports = albumController;
