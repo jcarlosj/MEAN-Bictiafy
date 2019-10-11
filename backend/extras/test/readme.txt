@@ -1,0 +1,1 @@
+Los archivos contenidos en el directorio 'extras/test' son objetos JSON usados para realizar pruebas automatizadas del API Rest, usando un Cliente API para solicitudes REST, SOAP y GraphQL
