@@ -13,23 +13,12 @@
     {
         "titulo": "ABBA",
         "descripcion": "Tercer álbum",
-        "anio": 1975,
+        "anio": "1975",
         "imagen": "http://localhost:4000/images/albums/abba.png",
         "artista": {
-        "nombre": "ABBA",
-        "descripcion": "Grupo sueco de música pop, integrado por Agnetha Fältskog, Björn Ulvaeus, Benny Andersson y Anni-Frid «Frida» Lyngstad",
-        "imagen": "http://localhost:4000/images/artist/abba.png",
-        }
-    },
-    { 
-        "titulo": "Thriller",
-        "descripcion": "Sexto álbum",
-        "anio": "1982",
-        "imagen": "http://localhost:4000/images/album/thriller.png",
-        "artista": {
-            "nombre": "Michael Joseph Jackson",
-            "descripcion": "Conocido como el «Rey del Pop»", 
-            "imagen": "http://localhost:4000/images/artist/michael-jackson.png"
+            "nombre": "ABBA",
+            "descripcion": "Grupo sueco de música pop, integrado por Agnetha Fältskog, Björn Ulvaeus, Benny Andersson y Anni-Frid «Frida» Lyngstad",
+            "imagen": "http://localhost:4000/images/artist/abba.png"
         }
     },
     { 

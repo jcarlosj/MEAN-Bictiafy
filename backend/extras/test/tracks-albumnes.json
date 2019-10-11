@@ -1,0 +1,21 @@
+[
+    {
+        "numero": "4",
+        "tituloCancion": "Thriller",
+        "duracion": "5:58",
+        "urlCancion": "http://localhost:4000/files/video/thriller.mpg4",
+        "album": { 
+            "titulo": "Thriller",
+            "descripcion": "Sexto álbum",
+            "anio": "1982",
+            "imagen": "http://localhost:4000/images/album/thriller.png",
+            "artista": {
+                "nombre": "Michael Joseph Jackson",
+                "descripcion": "Conocido como el «Rey del Pop»", 
+                "imagen": "http://localhost:4000/images/artist/michael-jackson.png"
+            }
+        }
+    }
+]    
+
+
