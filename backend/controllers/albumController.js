@@ -9,32 +9,38 @@ albumController .getAlbums = async ( request, response ) => {
     const albums = await Album .find() .populate( 'artista' );   
     response .json( albums ); 
 }
-/** TO DO: 
- *  1. Preguntar si la registro de documentos debe ser exclusivamente anidado
- *  2. En caso de que sea exclusivo reescribir el método seedArtist como createAlbum
- */
-albumController .seedArtist = async ( request, response ) => { 
 
-    /** Crea Objeto con el Schema Artista */
-    const newArtist = new Artist({
-        nombre: 'ABBA',
-        descripcion: 'Grupo sueco de música pop, integrado por Agnetha Fältskog, Björn Ulvaeus, Benny Andersson y Anni-Frid «Frida» Lyngstad', 
-        imagen: 'http://localhost:4000/images/artist/abba.png'
-    });
+albumController .createAlbumAndArtist = async ( request, response ) => { 
+    console .log( 'Enviado por el Cliente', request .body );      // Representa los datos que envia el 'cliente'
+
+    const { 
+            titulo,
+            descripcion,
+            anio,
+            imagen,
+            artista
+        } = request .body,
+
+        /** Crea Objeto con el Schema Artista */
+        newArtist = new Artist({
+            nombre: artista .nombre,
+            descripcion: artista .descripcion, 
+            imagen: artista .imagen
+        });
 
     console .log( 'Objeto Schema Artist', newArtist );
 
     /** Registra en la BD */
-    const artista = await newArtist .save();              // Es una operación Asíncrona 
+    const artist = await newArtist .save(),              // Es una operación Asíncrona 
 
-    /** Crea Objeto con el Schema Album */
-    const newAlbum = new Album({            
-        titulo: 'ABBA',
-        descripcion: 'Tercer álbum',
-        anio: '1975',
-        imagen: 'http://localhost:4000/images/albums/abba.png',
-        artista: artista ._id 
-    });
+        /** Crea Objeto con el Schema Album */
+        newAlbum = new Album({            
+            titulo,
+            descripcion,
+            anio,
+            imagen,
+            artista: artist ._id 
+        });
 
     console .log( 'Objeto Schema Artist', newAlbum );
 
@@ -44,34 +50,6 @@ albumController .seedArtist = async ( request, response ) => {
     console .log( 'Registro realizado', album );
 
     response .json({ message: 'Artist & Album Saved' });
-}
-
-albumController .createAlbum = async ( request, response ) => { 
-    console .log( 'Enviado por el Cliente', request .body );      // Representa los datos que envia el 'cliente'
-
-    const { 
-        titulo,
-        descripcion,
-        anio,
-        imagen,
-        artista 
-    } = request .body,
-        
-    /** Crea Objeto con el Schema Note */
-    newAlbum = new Album({            
-        titulo,
-        descripcion,
-        anio,
-        imagen,
-        artista 
-    });
-
-    console .log( 'Objeto Schema Album', newAlbum );
-
-    /** Registra en la BD */
-    await newAlbum .save();              // Es una operación Asíncrona 
-
-    response .json({ message: 'Album Saved' });
 }
 
 albumController .getAlbum = async ( request, response ) => {
