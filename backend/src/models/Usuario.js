@@ -7,7 +7,11 @@ const UsuarioSchema = new Schema({
     correo: String,
     contrasena: String,
     rol: String, 
-    imagen: String
+    imagen: String,
+    fecha_registro: {
+        type: Date,
+        default: Date .now
+    }
 });
 
 module .exports = mongoose .model( 'Usuario', UsuarioSchema );

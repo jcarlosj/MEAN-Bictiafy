@@ -1,5 +1,5 @@
 const { Router } = require( 'express' ),
-      { getUsers, createUser, getUser, updateUser, deleteUser } = require ( '../controllers/userController' ),
+      { getUsers, createUser, getUser, updateUser, deleteUser, loginUser } = require ( '../controllers/userController' ),
       usuario = Router();      
 
 // Escucha la ruta
@@ -11,5 +11,8 @@ usuario .route( '/users/:id' )
     .get( getUser )         // Recupera un recurso específico
     .put( updateUser )      // Reemplaza el recurso específico de destino
     .delete( deleteUser );  // Borra un recurso en específico
+
+usuario .route( '/login' )
+	.post( loginUser );		// Login de Usuario
 
 module .exports = usuario;
