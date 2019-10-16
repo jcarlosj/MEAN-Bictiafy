@@ -1,6 +1,7 @@
 /** Users Controllers */
 const usersController = {},
       bcrypt = require( 'bcryptjs' ),
+      jwt = require('jwt-simple'),
       User = require( '../models/Usuario' );       // Importa el Modelo de datos;
 
 // Métodos del Controlador Users
@@ -55,7 +56,8 @@ usersController .deleteUser = async ( request, response ) => {
 usersController .loginUser = async ( request, response ) => {
     console .log( 'Enviado por el Cliente', request .body );      // Representa los datos que envia el 'cliente'
 
-    const { correo, contrasena } = request .body;
+    const { correo, contrasena } = request .body,
+          SECRET_KEY='Secret-Key';
 
     // TODO: Hacer definir valores usando express ( app.set/app.get ) como se hizo con 'port'
     try {
@@ -84,21 +86,19 @@ usersController .loginUser = async ( request, response ) => {
                 }
 
                 console .log( 'El usuario se loguea' );
-                /** Test: Paso de JSON y Token al FrontEnd */
-                // let token = jwt .sign( { foo: 'bar' }, SECRET, {
-                //     expiresIn: 2000
-                // })
 
-                // let token = jwt .sign( payload, SECRET, {
-                //     expiresIn: 2000
-                // });
+                /** Encode Token: Paso de JSON y Token al FrontEnd */
+                let token = jwt .encode( payload, SECRET_KEY );
 
-                // console .log( 'TOKEN', token );
-                // response .send( token );
+                console .log( 'TOKEN', token );
+                //response .send( token );
 
-                //var token = jwt .encode( payload, secret );
-
-                response .json({ message: 'El usuario se loguea.' });
+                response .json({ 
+                    nombre: user[ 0 ] .nombre,
+                    correo: user[ 0 ] .correo,
+                    message: 'El usuario se loguea.',
+                    token: token 
+                });
             }
         }
         else {
@@ -154,6 +154,5 @@ usersController .createUser = async ( request, response ) => {
     }
       
 }
-
 
 module .exports = usersController;
