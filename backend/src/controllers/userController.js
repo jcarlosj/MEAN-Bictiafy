@@ -155,4 +155,18 @@ usersController .createUser = async ( request, response ) => {
       
 }
 
+// Subir imagen
+usersController .uploadUserImage = async( request, response ) => {
+    console .log( request .params .id );     // Recibe el parámetro ID de la URL
+
+    const user = await User .findById( request .params .id );
+    console .log( user );
+
+    console .log( 'Files', request .files );
+
+    response .json({
+        'message': 'Imagen subida exitosamente'
+    });
+}
+
 module .exports = usersController;

@@ -1,7 +1,7 @@
 const express = require( 'express' ),
       app = express(),
       bodyParser = require( 'body-parser' ),
-
+      
 /** Importa rutas disponibles */
       userRoutes = require( './routes/userRoutes' ),
       artistRoutes = require( './routes/artistRoutes' ),

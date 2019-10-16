@@ -1,6 +1,9 @@
 const { Router } = require( 'express' ),
-      { getUsers, createUser, getUser, updateUser, deleteUser, loginUser } = require ( '../controllers/userController' ),
-      usuario = Router();      
+      { getUsers, createUser, getUser, updateUser, deleteUser, loginUser, uploadUserImage } = require ( '../controllers/userController' ),
+      usuario = Router(),
+      multipart  =  require( 'connect-multiparty' ),
+      multipartMiddleware  =  multipart({ uploadDir:  './uploads' });
+      
 
 // Escucha la ruta
 usuario .route( '/users' ) 
@@ -14,5 +17,8 @@ usuario .route( '/users/:id' )
 
 usuario .route( '/login' )
 	.post( loginUser );		// Login de Usuario
+
+usuario .route( '/users-upload/:id', multipartMiddleware )
+    .get( uploadUserImage );
 
 module .exports = usuario;
